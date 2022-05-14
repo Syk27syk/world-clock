@@ -31,16 +31,9 @@ export default {
   },
   mounted () {
     $.get('http://ipinfo.io', function (response) {
-      const userIP = $(response.ip);
-      return userIP
-    }, 'jsonp');
-    $.get('http://ipinfo.io', function (response) {
-      const userAddress = $(response.city + ', ' + response.region);
-      return userAddress
-    }, 'jsonp');
-    $.get('http://ipinfo.io', function (response) {
-      const details = $('#details').html(JSON.stringify(response, null, 4));
-      return details
+      $('#ip').html('IP: ' + response.ip);
+      $('#address').html('Location: ' + response.city + ', ' + response.region);
+      $('#details').html(JSON.stringify(response, null, 4));
     }, 'jsonp');
   },
   methods: {

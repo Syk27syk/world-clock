@@ -9,13 +9,26 @@
         <p id="address">Your current location is {{ userLocation }}. </p>
         <p id="ip"> Your IP address is {{ userIP }}. </p>
         <pre id="details">Details: {{ details }}</pre>
-        <p>Current date and time is {{ date }}.</p>
+        <p class="my-5">Current date and time is {{ date }}.</p>
+        <div class="countdown">
+          <h5>Count down until new year 2023:</h5>
+          <div class="flex flex-row">
+            <p id="days"> days </p>
+            <p id="hours"> hours </p>
+            <p id="mins"> mins </p>
+            <p id="secs"> secs </p>
+            <p id="end"> end </p>
+          </div>
+        </div>
       </div>
       <div id="timer">
         <div class="grid grid-cols-2 gap-5 m-5 text-white">
           <button class="bg-black px-5 py-3">Start timer</button>
           <button class="bg-black px-5 py-3">Reset timer</button>
         </div>
+      </div>
+      <div id="page-event-log">
+        <p>Page event log: </p>
       </div>
     </div>
   </div>
@@ -57,6 +70,35 @@ export default {
         const details = $('#details').html(JSON.stringify(response, null, 4));
         return details
       }, 'jsonp');
+    },
+    gelocation () {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        return [latitude, longitude];
+      });
+    },
+    countDown() {
+      const countDownDate = new Date().getTime();
+      const myfunc = setInterval(function() {
+        const now = new Date().getTime();
+        const timeleft = countDownDate - now;
+        const days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
+        document.getElementById('days').innerHTML = days + 'd'
+        document.getElementById('hours').innerHTML = hours + 'h'
+        document.getElementById('mins').innerHTML = minutes + 'm'
+        document.getElementById('secs').innerHTML = seconds + 's'
+        if (timeleft < 0) {
+          clearInterval(myfunc);
+          document.getElementById('days').innerHTML = ''
+          document.getElementById('mins').innerHTML = ''
+          document.getElementById('secs').innerHTML = ''
+          document.getElementById('end').innerHTML = 'HAPPY NEW YEAR!';
+        }
+      }, 1000)
     }
   }
 }

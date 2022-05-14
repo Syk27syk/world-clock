@@ -99,7 +99,14 @@ export default {
           document.getElementById('end').innerHTML = 'HAPPY NEW YEAR!';
         }
       }, 1000)
+    },
+    /*
+    function timer() {
+      var sec = 30;
+      var timer = setInterval(function() {
+      })
     }
+    */
   }
 }
 </script>

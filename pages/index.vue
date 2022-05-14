@@ -6,14 +6,9 @@
         <p class="mt-5 text-xl">International dates and times</p>
       </div>
       <div id="malaysia" class="text-left m-5">
-        <h5 class="text-xl my-5 uppercase"> Current location </h5>
-        <div id="ip">address</div>
-        <div id="address">address</div>
-        <hr/>
-        Full response:
-        <pre id="details">details</pre>
-        <p>Your current location is {{ userLocation }}. </p>
-        <p> Your IP address is {{ ipAddress }}. </p>
+        <p id="address">Your current location is {{ userLocation }}. </p>
+        <p id="ip"> Your IP address is {{ userIP }}. </p>
+        <pre id="details">Details: {{ details }}</pre>
         <p>Current date and time is {{ date }}.</p>
       </div>
       <div id="timer">
@@ -32,15 +27,44 @@ export default {
   data () {
     return {
       date: new Date(),
-      userLocation: '',
     }
   },
   mounted () {
     $.get('http://ipinfo.io', function (response) {
-      $('#ip').html('IP: ' + response.ip);
-      $('#address').html('Location: ' + response.city + ', ' + response.region);
-      $('#details').html(JSON.stringify(response, null, 4));
+      const userIP = $(response.ip);
+      return userIP
     }, 'jsonp');
+    $.get('http://ipinfo.io', function (response) {
+      const userAddress = $(response.city + ', ' + response.region);
+      return userAddress
+    }, 'jsonp');
+    $.get('http://ipinfo.io', function (response) {
+      const details = $('#details').html(JSON.stringify(response, null, 4));
+      return details
+    }, 'jsonp');
+  },
+  methods: {
+    increment () {
+      this.userIP = this.userIP++;
+    },
+    userIP () {
+      $.get('http://ipinfo.io', function (response) {
+        const userIP = $(response.ip);
+        return userIP
+      }, 'jsonp');
+    },
+    userAddress () {
+      $.get('http://ipinfo.io', function (response) {
+        const userAddress = $(response.city + ', ' + response.region);
+        return userAddress
+      }, 'jsonp');
+    },
+    details () {
+      $.get('http://ipinfo.io', function (response) {
+        const details = $('#details').html(JSON.stringify(response, null, 4));
+        return details
+      }, 'jsonp');
+    }
   }
 }
 </script>

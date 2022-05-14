@@ -21,14 +21,24 @@
           </div>
         </div>
       </div>
-      <div id="timer">
+      <div id="timer" class="border border-black bg-gray-200 p-5">
+        <h5 class="text-black font-bold"> Timer </h5>
         <div class="grid grid-cols-2 gap-5 m-5 text-white">
+          <span class="col-span-2 bg-white py-2 px-5 w-full text-gray-800 text-center text-xl"> 00:00:00 </span>
           <button class="bg-black px-5 py-3">Start timer</button>
           <button class="bg-black px-5 py-3">Reset timer</button>
         </div>
       </div>
-      <div id="page-event-log">
-        <p>Page event log: </p>
+      <div id="page-event-log" class="mt-10 p-5 border border-black bg-gray-200">
+        <h5 class="text-left text-black font-bold text-medium">Page event log: </h5>
+        <pre>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+        </pre>
       </div>
     </div>
   </div>
@@ -102,8 +112,8 @@ export default {
     },
     /*
     function timer() {
-      var sec = 30;
-      var timer = setInterval(function() {
+      const sec = '';
+      const timer = setInterval(function() {
       })
     }
     */
